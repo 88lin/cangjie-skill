@@ -13,7 +13,7 @@ interface Props { entry: RegistryEntry }
 const { entry } = Astro.props;
 const repositoryPath = new URL(entry.source_url).pathname.replace(/^\//, "");
 const localGuidePath = withBase("/install/cangjie-skill.md");
-const guideUrl = import.meta.env.DEV ? new URL(localGuidePath, Astro.url).toString() : undefined;
+const guideUrl = new URL(localGuidePath, Astro.url).toString();
 const installPrompt = getAgentInstallPrompt(entry, guideUrl);
 const qualityLabel = {
   verified: "已验证",
