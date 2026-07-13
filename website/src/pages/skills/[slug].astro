@@ -1,7 +1,7 @@
 ---
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import { loadCatalog, type RegistryEntry } from "@/lib/catalog";
-import { getAgentInstallPrompt } from "@/lib/install";
+import { getAgentInstallPrompt, INSTALL_GUIDE_URL } from "@/lib/install";
 import { withBase } from "@/lib/urls";
 
 export async function getStaticPaths() {
@@ -12,9 +12,7 @@ export async function getStaticPaths() {
 interface Props { entry: RegistryEntry }
 const { entry } = Astro.props;
 const repositoryPath = new URL(entry.source_url).pathname.replace(/^\//, "");
-const localGuidePath = withBase("/install/cangjie-skill.md");
-const guideUrl = new URL(localGuidePath, Astro.url).toString();
-const installPrompt = getAgentInstallPrompt(entry, guideUrl);
+const installPrompt = getAgentInstallPrompt(entry);
 const qualityLabel = {
   verified: "已验证",
   community: "社区收录",
@@ -108,7 +106,7 @@ const qualityLabel = {
         <div class="install-prompt"><p>{installPrompt}</p></div>
         <button class="copy-prompt" type="button" data-copy={installPrompt}>复制安装提示词</button>
         <div class="install-links">
-          <a href={localGuidePath} target="_blank">查看安装规范</a>
+          <a href={INSTALL_GUIDE_URL} target="_blank" rel="noreferrer">查看安装规范</a>
           <a href={entry.source_url} target="_blank" rel="noreferrer">查看源代码 ↗</a>
         </div>
       </section>

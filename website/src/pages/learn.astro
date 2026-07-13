@@ -1,10 +1,9 @@
 ---
 import BaseLayout from "@/layouts/BaseLayout.astro";
+import { INSTALL_GUIDE_URL } from "@/lib/install";
 import { withBase } from "@/lib/urls";
 
-const localGuidePath = withBase("/install/cangjie-skill.md");
-const guideUrl = new URL(localGuidePath, Astro.url).toString();
-const exampleInstallPrompt = "请根据 " + guideUrl + "，从 https://github.com/kangarooking/buffett-letters-skill 安装 buffett-letters-skill。";
+const exampleInstallPrompt = "请根据 " + INSTALL_GUIDE_URL + "，从 https://github.com/kangarooking/buffett-letters-skill 安装 buffett-letters-skill。";
 ---
 
 <BaseLayout title="使用教程 — 仓颉 Skill" description="从选择、安装到调用，快速学会在主流 AI 编程 Agent 中使用仓颉 Skill。">
