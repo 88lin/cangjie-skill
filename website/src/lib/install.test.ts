@@ -20,8 +20,35 @@ const baseEntry: RegistryEntry = {
 describe("Agent install prompt", () => {
   it("generates a copy-ready prompt for GitHub skills", () => {
     expect(getAgentInstallPrompt(baseEntry)).toBe(
-      `请根据 ${INSTALL_GUIDE_URL}，从 https://github.com/example/example-skill 安装 example-skill。`,
+      `请根据 ${INSTALL_GUIDE_URL}，从 https://github.com/example/example-skill 安装 example-skill。安装后新增 1 个 Skill。`,
     );
+  });
+
+  it("mentions the single entrypoint and capability cards for v2 single packs", () => {
+    const prompt = getAgentInstallPrompt({
+      ...baseEntry,
+      schema_version: 2,
+      output_mode: "single",
+      entrypoint_count: 1,
+      capability_count: 19,
+    });
+    expect(prompt).toContain("single 模式");
+    expect(prompt).toContain("19 张");
+  });
+
+  it("mentions the router entrypoint for v2 compact packs", () => {
+    const prompt = getAgentInstallPrompt({
+      ...baseEntry,
+      schema_version: 2,
+      output_mode: "pack",
+      skill_count: 7,
+      entrypoint_count: 7,
+      capability_count: 19,
+      router_entrypoint: "naval-almanack",
+    });
+    expect(prompt).toContain("compact pack");
+    expect(prompt).toContain("7 个 Skill 入口");
+    expect(prompt).toContain("naval-almanack");
   });
 
   it("includes the exact bundled path when the skill lives in this repository", () => {

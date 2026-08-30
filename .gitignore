@@ -4,3 +4,8 @@ website/.astro/
 website/dist/
 website/.npm-cache/
 *.log
+__pycache__/
+*.py[cod]
+books/*/.cangjie/runs/
+books/*/.cangjie/snapshots/
+*.cangjie-lock

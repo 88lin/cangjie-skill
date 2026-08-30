@@ -25,7 +25,8 @@ const featured = entries.filter((entry) => entry.featured).slice(0, 6);
         <div class="hero-panel-label">Registry / v1</div>
         <dl class="hero-stats">
           <div><dt>{stats.packs}</dt><dd>Skill Packs</dd></div>
-          <div><dt>{stats.skills}</dt><dd>Atomic Skills</dd></div>
+          <div><dt>{stats.skills}</dt><dd>Legacy Atomic Skills</dd></div>
+          {stats.v2Packs > 0 && <div><dt>{stats.v2Entrypoints} / {stats.v2Capabilities}</dt><dd>v2 入口 / 能力</dd></div>}
           <div><dt>{stats.domains}</dt><dd>Knowledge Domains</dd></div>
           <div><dt>{stats.contributors}</dt><dd>Contributors</dd></div>
         </dl>

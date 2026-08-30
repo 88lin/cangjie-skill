@@ -1,6 +1,6 @@
 ---
 import BaseLayout from "@/layouts/BaseLayout.astro";
-import { loadCatalog, type RegistryEntry } from "@/lib/catalog";
+import { getEntrypointCount, getOutputMode, loadCatalog, type RegistryEntry } from "@/lib/catalog";
 import { getAgentInstallPrompt, INSTALL_GUIDE_URL } from "@/lib/install";
 import { withBase } from "@/lib/urls";
 
@@ -29,7 +29,8 @@ const qualityLabel = {
         <div>
           <div class="detail-badges">
             <span class:list={["quality-badge", "quality-" + entry.quality]}>{qualityLabel}</span>
-            <span>{entry.skill_count} 个原子 Skill</span>
+            <span>安装后新增 {getEntrypointCount(entry)} 个可发现 Skill</span>
+            {getOutputMode(entry) !== "legacy-pack" && <span>{getOutputMode(entry) === "single" ? "单入口模式" : "Compact Pack"} · {entry.capability_count} 项能力</span>}
             <span>{entry.domains.join(" · ")}</span>
           </div>
           <h1>{entry.name}</h1>
@@ -55,7 +56,8 @@ const qualityLabel = {
         <h2>这个 Skill Pack 能做什么</h2>
         <p class="section-lede">{entry.summary}</p>
         <dl class="overview-stats">
-          <div><dt>{entry.skill_count}</dt><dd>原子 Skills</dd></div>
+          <div><dt>{getEntrypointCount(entry)}</dt><dd>可发现入口</dd></div>
+          {getOutputMode(entry) !== "legacy-pack" && <div><dt>{entry.capability_count}</dt><dd>经验证能力</dd></div>}
           <div><dt>{entry.domains.length}</dt><dd>覆盖领域</dd></div>
           <div><dt>{entry.language.length}</dt><dd>支持语言</dd></div>
         </dl>
