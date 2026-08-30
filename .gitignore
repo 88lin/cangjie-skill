@@ -1,0 +1,6 @@
+.DS_Store
+website/node_modules/
+website/.astro/
+website/dist/
+website/.npm-cache/
+*.log
